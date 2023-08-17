@@ -1,0 +1,54 @@
+.task-block {
+  display: flex;
+  gap: 6px;
+  text-align: left;
+  align-items: center;
+  overflow-wrap: break-word;
+  margin-top: 8px;
+
+  .task-text {
+    overflow-wrap: break-word;
+    width: 200px;
+  }
+}
+
+.task-buttons {
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  div {
+    font-weight: bold;
+    font-size: 26px;
+    text-align: center;
+  }
+
+  svg, div {
+    transition: all 0.2s all;
+  }
+
+  svg:hover, div:hover {
+    opacity: 0.9;
+  }
+
+  svg:active, div:active {
+    opacity: 0.7;
+  }
+}
+
+.changeText-input {
+  width: 100%;
+  border: 4px solid #8aa1d0;
+  border-radius: 4px;
+  padding: 2px;
+  padding-left: 4px;
+
+  &:focus {
+    outline: none;
+  }
+}

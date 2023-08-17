@@ -1,0 +1,75 @@
+body {
+  background-color: #24273d;
+  box-sizing: border-box;
+}
+
+.App {
+  text-align: center;
+
+  h1 {
+    color: #f3f6fb;
+  }
+
+  div {
+    color: #d0daed;
+  }
+}
+
+.app-container {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  width: 600px;
+}
+
+.tasks-container {
+  text-align: center;
+  margin: auto;
+  width: 300px;
+  margin-top: 30px;
+}
+
+.tasks-input {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .newTask-input {
+    border: none;
+    border-top: 4px solid #8aa1d0;
+    border-bottom: 4px solid #8aa1d0;
+    border-left: 4px solid #8aa1d0;
+    border-radius: 6px 0px 0px 6px;
+    padding: 6px;
+  }
+
+  .newTask-input:focus {
+    outline: none;
+  }
+
+  .button-container {
+    button {
+      padding: 6px 10px;
+      border: none;
+      border-top: 4px solid #8aa1d0;
+      border-bottom: 4px solid #8aa1d0;
+      border-left: none;
+      background-color: white;
+      transition: all 0.2s ease-in-out;
+    }
+
+    button:hover {
+      font-weight: bold;
+    }
+
+    button:active {
+      font-weight: lighter;
+    }
+
+    button:last-child {
+      border-radius: 0px 6px 6px 0px;
+      border-right: 4px solid #8aa1d0;
+    }
+  }
+}
