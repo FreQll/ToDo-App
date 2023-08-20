@@ -12,8 +12,10 @@ function App() {
   const [universities, setUniversities] = useState("");
   const [newTaskTitle, setNewTaskTitle] = useState("");
 
+  const link = "https://universities.hipolabs.com/search?country=Ukraine";
+
   useEffect(() => {
-    fetch(`http://universities.hipolabs.com/search?country=Ukraine`)
+    fetch(link)
       .then((response) => {
         return response.json();
       })
