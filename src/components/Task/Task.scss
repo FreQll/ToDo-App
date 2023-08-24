@@ -5,6 +5,7 @@
   align-items: center;
   overflow-wrap: break-word;
   margin-top: 8px;
+  transition: transform 0.5s ease-in-out;
 
   .task-text {
     overflow-wrap: break-word;
@@ -12,10 +13,15 @@
   }
 }
 
+.checkbox-input {
+  cursor: pointer;
+}
+
 .task-buttons {
   display: flex;
   gap: 8px;
   margin-left: auto;
+  cursor: pointer;
 
   svg {
     width: 20px;
@@ -51,4 +57,22 @@
   &:focus {
     outline: none;
   }
+}
+
+.options-container {
+  display: flex;
+  gap: 10px;
+
+  svg {
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      opacity: 0.85;
+    }
+  }
+}
+
+.move-container {
+
 }

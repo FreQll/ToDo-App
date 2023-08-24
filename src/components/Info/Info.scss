@@ -1,0 +1,16 @@
+.info {
+  position: fixed;
+  top: 10px;
+  left: 20px;
+  text-align: left;
+  padding: 5px;
+  border: 2px solid white;
+  border-radius: 4px;
+  background-color: #424d6d;
+
+  p {
+    margin: 0;
+    padding: 5px;
+    font-size: 1.2em;
+  }
+}

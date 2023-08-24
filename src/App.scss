@@ -36,6 +36,7 @@ body {
   justify-content: center;
 
   .newTask-input {
+    width: 250px;
     border: none;
     border-top: 4px solid #8aa1d0;
     border-bottom: 4px solid #8aa1d0;
@@ -57,6 +58,7 @@ body {
       border-left: none;
       background-color: white;
       transition: all 0.2s ease-in-out;
+      cursor: pointer;
     }
 
     button:hover {
@@ -80,6 +82,7 @@ body {
   color: white;
   font-size: 24px;
   transition: all 0.2s;
+  cursor: pointer;
 
   &:hover {
     font-weight: bold;
@@ -100,5 +103,17 @@ body {
 
   div {
     margin-bottom: 4px;
+  }
+}
+
+.sort {
+  font-size: 1.5em;
+  padding: 10px;
+  user-select: none;
+  transition: 0.2s all;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.8;
   }
 }

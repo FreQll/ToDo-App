@@ -1,0 +1,55 @@
+$border-color: #bad0e7;
+
+.search-container {
+  margin-top: 5px;
+
+  input {
+    border: 2px solid $border-color;
+    border-right: none;
+    border-radius: 6px 0px 0px 6px;
+    padding: 6px;
+    padding-left: 30px;
+    transition: all 0.2s ease-in-out;
+    width: 140px;
+
+    &:focus {
+      outline: none;
+
+        width: 230px;
+    }
+  }
+}
+
+.icon {
+  position: relative;
+  display: inline-block;
+  left: 24px;
+  top: 4px;
+  
+  svg {
+    color: black;
+    opacity: 0.25;
+  }
+}
+
+.clear-button {
+  padding: 6px 10px;
+  border: none;
+  border-top: 2px solid $border-color;
+  border-bottom: 2px solid $border-color;
+  border-right: 2px solid $border-color;
+  border-radius: 0px 6px 6px 0px;
+  border-left: none;
+  font-weight: 200;
+  background-color: white;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+
+  &:hover {
+    font-weight: bold;
+  }
+
+  &:active {
+    font-weight: lighter;
+  }
+}
