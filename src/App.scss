@@ -9,10 +9,6 @@ body {
   h1 {
     color: #f3f6fb;
   }
-
-  div {
-    color: #d0daed;
-  }
 }
 
 .app-container {
@@ -95,9 +91,10 @@ body {
 
 .universities {
   margin-top: 250px;
+  color: rgb(255, 255, 255);
 
   a {
-    color: white;
+    color: rgb(153, 153, 153);
     padding: 15px;
   }
 
@@ -111,6 +108,7 @@ body {
   padding: 10px;
   user-select: none;
   transition: 0.2s all;
+  color: white;
   cursor: pointer;
 
   &:hover {

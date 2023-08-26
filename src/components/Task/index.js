@@ -1,13 +1,11 @@
 import React, { useCallback, useState } from "react";
-import "./Task.scss";
+import "./styles.scss";
 import { PenIcon } from "../icons/PenIcon";
 import { TrashIcon } from "../icons/TrashIcon";
 import ArrowUp from "../icons/ArrowUp";
 import ArrowDown from "../icons/ArrowDown";
 
-function Task(props) {
-  const { title, isComplete } = props;
-
+function Task({ id, title, isComplete, handleDeleteTask, tasks, setTasks, index }) {
   const [editing, setEditing] = useState(false);
   const [newTaskTitle, setNewTaskTitle] = useState(title);
   const [isCompleted, setIsCompleted] = useState(isComplete);
@@ -20,38 +18,30 @@ function Task(props) {
   }, [isCompleted]);
 
   const removeTask = useCallback(() => {
-    const { id, handleDeleteTask } = props;
     handleDeleteTask(id);
-  }, [props]);
+  }, [handleDeleteTask, id]);
 
   const editTask = useCallback(() => {
     setEditing(!editing);
   }, [editing]);
 
   const applyChanges = useCallback(() => {
-    const { tasks, setTasks } = props;
-    if (newTaskTitle.trim() !== "") {
+    if (!newTaskTitle.trim()) {
       setEditing(false);
       setTaskTitle(newTaskTitle);
       const updatedTasks = tasks.map((task) =>
-        task.id === props.id ? { ...task, title: newTaskTitle } : task
+        task.id === id ? { ...task, title: newTaskTitle } : task
       );
       setTasks(updatedTasks);
     }
-  }, [newTaskTitle, props]);
+  }, [newTaskTitle, id, setTasks, tasks]);
 
   const handleInputChange = useCallback(({ target: { value } }) => {
     setNewTaskTitle(value);
   }, []);
 
   const moveUp = useCallback(() => {
-    const { id, tasks, setTasks } = props;
-    const index = tasks
-      .map((e) => {
-        return e.id;
-      })
-      .indexOf(id);
-    if (index === 0) return;
+    if (!index) return;
     let tempArray = [...tasks];
     const tempElement = tempArray[index];
     tempArray[index] = tempArray[index - 1];
@@ -60,15 +50,9 @@ function Task(props) {
       setTasks(tempArray);
     }, 800);
     setPositionOffset(-1);
-  }, [props]);
+  }, [setTasks, tasks, index]);
 
   const moveDown = useCallback(() => {
-    const { id, tasks, setTasks } = props;
-    const index = tasks
-      .map((e) => {
-        return e.id;
-      })
-      .indexOf(id);
     if (index + 1 === tasks.length) return;
     let tempArray = [...tasks];
     const tempElement = tempArray[index];
@@ -79,7 +63,7 @@ function Task(props) {
     }, 800);
 
     setPositionOffset(1);
-  }, [props]);
+  }, [setTasks, tasks, index]);
 
   return (
     <div

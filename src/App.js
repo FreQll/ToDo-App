@@ -1,9 +1,11 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import "./App.scss";
-import Task from "./components/Task/Task";
-import Search from "./components/Search/Search";
-import Info from "./components/Info/Info";
+import Task from "./components/Task";
+import Search from "./components/Search";
+import Info from "./components/Info";
+import sortArrayByParams from "./utils/sortFunctions";
+import Calendar from "./components/Calendar";
 
 function App() {
   const [tasks, setTasks] = useState([
@@ -11,11 +13,20 @@ function App() {
     { id: 2, title: "Walking the dog in the park", completed: false },
     { id: 3, title: "Make coffee", completed: false },
   ]);
-  const [searchStorage, setSearchStorage] = useState([]);
+
   const [searchValue, setSearchValue] = useState("");
   const [universities, setUniversities] = useState("");
   const [newTaskTitle, setNewTaskTitle] = useState("");
   const [isSortAsc, setIsSortAsc] = useState(true);
+
+  const preparedTasks = useMemo(() => {
+    const result = tasks.filter((task) => {
+      return task.title
+        .toLocaleLowerCase()
+        .includes(searchValue.toLocaleLowerCase());
+    });
+    return result;
+  }, [searchValue, tasks]);
 
   const getUni = async () => {
     await fetch("http://universities.hipolabs.com/search?country=Ukraine")
@@ -24,16 +35,6 @@ function App() {
       })
       .then((data) => setUniversities(data.slice(0, 10)));
   };
-
-  useEffect(() => {
-    setSearchStorage(
-      tasks.filter((task) => {
-        return task.title
-          .toLocaleLowerCase()
-          .includes(searchValue.toLocaleLowerCase());
-      })
-    );
-  }, [searchValue, tasks]);
 
   useEffect(() => {
     getUni();
@@ -74,21 +75,9 @@ function App() {
   }, [newTaskTitle, clearInput]);
 
   const sortTasks = useCallback(() => {
-    if (isSortAsc) {
-      setTasks(
-        tasks.toSorted((a, b) => {
-          return a.title.localeCompare(b.title);
-        })
-      );
-    } else {
-      setTasks(
-        tasks.toSorted((a, b) => {
-          return b.title.localeCompare(a.title);
-        })
-      );
-    }
-    setIsSortAsc(!isSortAsc);
-  }, [tasks, isSortAsc]);
+    setTasks((prevTasks) => sortArrayByParams(prevTasks, isSortAsc, "title"));
+    setIsSortAsc((prevSortAsc) => !prevSortAsc);
+  }, [isSortAsc]);
 
   return (
     <div className="App">
@@ -115,60 +104,41 @@ function App() {
             </button>
           </div>
 
-          <Search
-            searchValue={searchValue}
-            setSearchValue={setSearchValue}
-            setSearchStorage={setSearchStorage}
-            tasks={tasks}
-          />
+          <Search searchValue={searchValue} setSearchValue={setSearchValue} />
         </div>
 
         <Info tasks={tasks} />
 
         <div className="tasks-container">
-          {!searchValue
-            ? tasks &&
-              tasks.map((task) => {
-                return (
-                  <Task
-                    id={task.id}
-                    title={task.title}
-                    isComplete={task.completed}
-                    handleDeleteTask={() => handleDeleteTask(task.id)}
-                    handleChangeTask={handleChangeTask}
-                    tasks={tasks}
-                    setTasks={setTasks}
-                    key={`task${task.id}`}
-                  />
-                );
-              })
-            : searchStorage &&
-              searchStorage.map((task) => {
-                return (
-                  <Task
-                    id={task.id}
-                    title={task.title}
-                    isComplete={task.completed}
-                    handleDeleteTask={() => handleDeleteTask(task.id)}
-                    handleChangeTask={handleChangeTask}
-                    tasks={tasks}
-                    setTasks={setTasks}
-                    key={`task${task.id}`}
-                  />
-                );
-              })}
-          {}
+          {preparedTasks &&
+            preparedTasks.map((task, index) => {
+              return (
+                <Task
+                  id={task.id}
+                  title={task.title}
+                  isComplete={task.completed}
+                  handleDeleteTask={() => handleDeleteTask(task.id)}
+                  handleChangeTask={handleChangeTask}
+                  tasks={tasks}
+                  setTasks={setTasks}
+                  index={index}
+                  key={`task${task.id}`}
+                />
+              );
+            })}
         </div>
+
+        <Calendar/>
 
         <div className="universities">
           {universities &&
             universities.map((uni) => {
               return (
-                <div>
-                  <div key={`uni${uni.name}`}>{uni.name}</div>
+                <div key={`uni${uni.name}`}>
+                  <div>{uni.name}</div>
                   <div>
                     {uni.domains.map((domain) => {
-                      return <a href={`http://${domain}`}>{domain}</a>;
+                      return <a key={`link${domain}`} href={`http://${domain}`}>{domain}</a>;
                     })}
                   </div>
                 </div>
