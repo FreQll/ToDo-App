@@ -13,4 +13,4 @@ export const monthNames = [
   "December",
 ];
 
-export const dayNames = ["S", "M", "T", "W", "T", "F", "S"];
+export const dayNames = ["Sn", "M", "T", "W", "T", "F", "S"];

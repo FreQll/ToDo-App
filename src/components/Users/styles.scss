@@ -1,0 +1,65 @@
+.users-list {
+  color: white;
+  margin-top: 20px;
+
+  div {
+    display: grid;
+    grid-template-columns: 40px repeat(5, 1fr);
+    text-align: center;
+
+    span {
+      border: 1px solid white;
+      padding: 5px;
+
+      input {
+        width: 20px;
+        height: 20px;
+        margin: auto;
+      }
+    }
+  }
+}
+
+.input-form {
+  display: flex;
+  width: 100%;
+  gap: 5px;
+
+  input, button {
+    flex: 1;
+  }
+
+  input {
+    outline: none;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 10px;
+  }
+
+  button {
+    border-radius: 10px;
+    background-color: #24273d;
+    color: white;
+    border: 1px solid white;
+    transition: all 0.2s;
+    
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}
+
+a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  text-align: center;
+  width: 100%;
+  padding: 20px;
+  margin: 0;
+}
+
+.users-header {
+  background-color: #44496e;
+  margin-bottom: 10px;
+}

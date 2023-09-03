@@ -40,12 +40,11 @@ const Calendar = () => {
       0
     ).getDate();
 
-    const days = Array.from(Array(daysInCurrentMonth), (_, index) => index + 1);
+    const days = Array.from(Array(daysInCurrentMonth), (_, index) => index + 1); //TODO fix this part of code
     const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
     const emptyDaysArray = Array(firstDayOfMonth).fill("");
-    const result = [...emptyDaysArray, ...days];
 
-    return result;
+    return [...emptyDaysArray, ...days];
   }, [currentMonth, currentYear]);
 
   const getYears = useMemo(() => {
@@ -75,7 +74,7 @@ const Calendar = () => {
   }, []);
 
   const pickYear = useCallback(() => {
-    setPickYearOpened((prevValue) => !prevValue);
+    setPickYearOpened((prevState) => !prevState);
   }, []);
 
   const setYear = useCallback(
@@ -114,9 +113,7 @@ const Calendar = () => {
           <div className="header">
             <div onClick={pickYear} className="date">
               <div>
-                {monthNames[currentDate.getMonth()] +
-                  " " +
-                  currentDate.getFullYear()}
+                {`${monthNames[currentDate.getMonth()]} ${currentDate.getFullYear()}`}
               </div>
               <div className={`year-pick ${pickYearOpened ? "open" : ""}`}>
                 ▼
@@ -173,7 +170,7 @@ const Calendar = () => {
                     <div
                       key={`year${year}`}
                       className={`year-element ${
-                        currentYear === year ? "active" : ""
+                        currentYear === year ? "active" : undefined
                       }`}
                     >
                       <div onClick={setYear} data-year={year}>
